@@ -5,6 +5,7 @@ People often come up with good ideas, but lack the skills and resources to imple
 
 
 Individual Team Member Roles:
+
   Lily Hoffman: Project Management & iOS Development
   Alexandra Leonidova: Web Development
   Leah Sato: Android Development
