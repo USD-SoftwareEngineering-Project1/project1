@@ -5,12 +5,20 @@ People often come up with good ideas, but lack the skills and resources to imple
 
 
 
+
 Individual Team Member Roles:
+
   Lily Hoffman: Project Management & iOS Development
+  
   Alexandra Leonidova: Web Development
+  
   Leah Sato: Android Development
+  
+  
+
 
 Shared Roles
+
 Design: All team members will contribute to UI design, database organization design, and architectural design. The three facets of our project are distinct and separate and it is therefore crucial that we all agree on a coherent organization and presentation of content.
 
 
