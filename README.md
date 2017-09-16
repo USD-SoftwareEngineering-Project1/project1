@@ -4,7 +4,7 @@ Problem Statement:
 People often come up with good ideas, but lack the skills and resources to implement them. Creative, ambitious, and motivated individuals often do not have an outlet for their goals. Our vision is to create a space for students of all disciplines to share their ideas, get feedback on their ideas, and communicate with others who may be interested in bringing their ideas to life. 
 
 
-/****************************************************************************************************************************************/
+/***************************************************************************************************/
 
 Individual Team Member Roles:
 
@@ -14,7 +14,7 @@ Individual Team Member Roles:
   
   Leah Sato: Android Development
   
-/****************************************************************************************************************************************/
+/*****************************************************************************************************/
 
 
 Shared Roles
