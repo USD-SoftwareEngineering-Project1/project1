@@ -8,12 +8,15 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class IdeaDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     var ideaReference: String!
     var idea: IdeaData!
     var ideaComments = [IdeaCommentData]()
     var interestedUsers: [UserData]!
+    var firebaseUser: User!
+    
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -23,6 +26,7 @@ class IdeaDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        firebaseUser = Auth.auth().currentUser
         
         ideaDescriptionLabel.preferredMaxLayoutWidth = UIScreen.main.bounds.width
         tableView.delegate = self
@@ -35,6 +39,8 @@ class IdeaDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             self.ideaComments = idea.comments!
 
             self.interestedUsers = idea.interestedUsers
+            self.requiredRolesLabel.text = "Required Roles: " + idea.roles.joined(separator: ", ")
+
             
             self.ideaTitleLabel.text = idea.ideaTitle
             self.ideaDescriptionLabel.text = idea.ideaDescription
@@ -43,17 +49,24 @@ class IdeaDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             self.tableView.reloadData()
         })
     }
-
-    
+    @IBAction func viewInterestedUsersButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: "ShowInterestedUsers", sender: nil)
+    }
     @IBOutlet var tableView: UITableView!
     @IBOutlet var ideaTitleLabel: UILabel!
     @IBOutlet var ideaDescriptionLabel: UILabel!
     @IBOutlet var descriptionLabelScrollView: UIScrollView!
     @IBOutlet var ideaAuthorNameButton: UIButton!
+    @IBOutlet var requiredRolesLabel: UILabel!
+    
     @IBAction func ideaAuthorNameButtonPressed(_ sender: Any) {
         self.performSegue(withIdentifier: "ShowAuthorProfile", sender: idea.ideaAuthorUID)
     }
     @IBAction func interestedButtonPressed(_ sender: Any) {
+        DataService.singleton.observeUser(uid: firebaseUser.uid, completed: { (user) in
+            DataService.singleton.submitInterestedUser(ideaReference: self.ideaReference, user: user )
+        })
+        
     }
     @IBAction func commentButtonPressed(_ sender: Any) {
         let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.regular))
@@ -83,6 +96,19 @@ class IdeaDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         cell.detailTextLabel?.text! = ideaComments[indexPath.row].ideaCommentText
         return cell
     }
+    
+    //Allow user to delete their own idea
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            if(ideaComments[indexPath.row].ideaCommentAuthorUID == firebaseUser.uid){
+                DataService.singleton.deleteComment(ideaReference: idea.ideaReference, commentReference: ideaComments[indexPath.row].ideaCommentReference)
+                self.ideaComments.remove(at: indexPath.row)
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Comment"{
             let dest = segue.destination as! CommentVC
@@ -92,6 +118,11 @@ class IdeaDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         if segue.identifier == "ShowAuthorProfile"{
             let dest = segue.destination as! ProfileVC
             dest.userUID = sender as! String
+        }
+        if segue.identifier == "ShowInterestedUsers"{
+            let dest = segue.destination as! InterestedUsersVC
+            dest.ideaReference = ideaReference
+            dest.interestedUsers = idea.interestedUsers
         }
     }
     

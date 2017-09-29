@@ -24,6 +24,8 @@ class GlobalActions{
     static let themeLightBlue = UIColor(red: 18.0/255.0, green: 118.0/255.0, blue: 197.0/255.0, alpha: 1.0).cgColor
     static let themeDarkBlue = UIColor(red: 5.0/255.0, green: 60.0/255.0, blue: 110.0/255.0, alpha: 1.0).cgColor
     
+    static let majorsList = ["Anthropology", "Architecture" ,"Art History" , "Behavioral Neuroscience", "Biochemistry", "Biology","Biophysics" , "Chemistry", "Communication Studies" , "English", "Environmental and Ocean Sciences", "Ethnic Studies", "French", "History", "Interdisciplinary Humanities", "International Relations", "Italian Studies", "Liberal Studies", "Mathematics", "Music", "Philosophy", "Physics", "Political Science", "Psychology", "Sociology", "Spanish", "Theatre", "Theology and Religious Studies", "Visual Arts", "Economics", "Accountancy", "Business Administration", "Business","Economics", "Finance", "International Business", "Marketing", "Real Estate", "Computer Science", "Electrical Engineering", "Industrial and Systems Engineering", "Mechanical Engineering"]
+    
     func displayAlert(sender: UIViewController, title: String, message: String){
         
         let errorAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -44,5 +46,6 @@ class GlobalActions{
         }
         return #imageLiteral(resourceName: "network-rect")
     }
+    
     
 }

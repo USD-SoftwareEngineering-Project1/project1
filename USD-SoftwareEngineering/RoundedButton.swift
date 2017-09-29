@@ -17,7 +17,7 @@ class RoundedButton: UIButton {
         layer.borderWidth = 1.0
         
         layer.backgroundColor = GlobalActions.themeLightBlue
-        layer.cornerRadius = 15.0
+        layer.cornerRadius = layer.frame.height/2
         
         layer.shadowColor = GlobalActions.themeDarkBlue
         layer.shadowOffset = CGSize(width: 1.0, height: 1.0)

@@ -80,8 +80,19 @@ class DataService{
         firebaseIdeasRef.child(ideaReference).child("comments").childByAutoId().setValue(newComment)
     }
     
+    func submitInterestedUser(ideaReference: String, user: UserData){
+        firebaseIdeasRef.child(ideaReference).child("interestedUsers").child(user.userUID).child("uid").setValue(user.userUID)
+        firebaseIdeasRef.child(ideaReference).child("interestedUsers").child(user.userUID).child("name").setValue(user.name)
+        firebaseIdeasRef.child(ideaReference).child("interestedUsers").child(user.userUID).child("majors").setValue(user.major)
+    }
     
     
+    func updateUser(userUID: String, name: String, email: String, bio: String){
+        firebaseUsersRef.child(userUID).child("name").setValue(name)
+        firebaseUsersRef.child(userUID).child("email").setValue(email)
+        firebaseUsersRef.child(userUID).child("bio").setValue(bio)
+
+    }
     
     
     
@@ -206,20 +217,23 @@ class DataService{
                 let comments = ideaSnapshot.childSnapshot(forPath: "comments")
                 for child in comments.children{
                     let comment = child as! DataSnapshot
+                    let ideaCommentReference = comment.key
                     let ideaCommentAuthorName = comment.childSnapshot(forPath: "ideaCommentAuthorName").value as! String
                     let ideaCommentAuthorUID = comment.childSnapshot(forPath: "ideaCommentAuthorUID").value as! String
                     let ideaCommentText = comment.childSnapshot(forPath: "ideaCommentText").value as! String
                     let timestamp = comment.childSnapshot(forPath: "timestamp").value as! Double
                     
-                    let newComment = IdeaCommentData(ideaCommentAuthorName: ideaCommentAuthorName, ideaCommentAuthorUID: ideaCommentAuthorUID, ideaCommentText: ideaCommentText, timestamp: timestamp)
+                    let newComment = IdeaCommentData(ideaCommentReference: ideaCommentReference, ideaCommentAuthorName: ideaCommentAuthorName, ideaCommentAuthorUID: ideaCommentAuthorUID, ideaCommentText: ideaCommentText, timestamp: timestamp)
                     commentData.append(newComment)
                 }
                 commentData.sort{
                     $0.timestamp > $1.timestamp
                 }
-                
+            
+            
                 var interestedUsersData = [UserData]()
-                let interestedUsers = ideaSnapshot.childSnapshot(forPath: "interestedUsers")
+            
+                var interestedUsers = ideaSnapshot.childSnapshot(forPath: "interestedUsers")
                 for child in interestedUsers.children{
                     let user = child as! DataSnapshot
                     let userUID = user.childSnapshot(forPath: "uid").value as! String
@@ -233,11 +247,24 @@ class DataService{
                     $0.name > $1.name
                 }
                 
-                
                 let idea = IdeaData(ideaReference: ideaReference, ideaTitle: ideaTitle, ideaSubtitle: ideaSubtitle, ideaDescription: ideaDescription, roles: roles, ideaAuthorUID: ideaAuthorUID, ideaAuthorName: ideaAuthorName, ideaAuthorMajor: ideaAuthorMajor, comments: commentData, interestedUsers: interestedUsersData, timestamp: timestamp)
 
             completed(idea)
         })
+    }
+    
+    func observeInterestedUsers(ideaReference: String, completed: @escaping ([UserData]) -> ()){
+        var users = [UserData]()
+        
+        firebaseIdeasRef.child(ideaReference).child("interestedUsers").observe(.value, with: { (snapshot) in
+            for child in snapshot.children{
+                let interestedUserUID = (child as! DataSnapshot).key
+                self.observeUser(uid: interestedUserUID, completed: { user in
+                    users.append(user)
+                })
+            }
+        })
+        completed(users)
     }
 
     //CalledFrom ProfileVC, NewIdeaVC, CommentVC
@@ -309,5 +336,8 @@ class DataService{
         firebaseIdeasRef.child(ideaReference).removeValue()
     }
     
+    func deleteComment(ideaReference: String, commentReference: String){
+        firebaseIdeasRef.child(ideaReference).child("comments").child(commentReference).removeValue()
+    }
     
 }

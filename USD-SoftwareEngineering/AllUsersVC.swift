@@ -39,4 +39,16 @@ class AllUsersVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ViewUser", sender: users[indexPath.row].userUID )
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ViewUser"{
+            let destVC = segue.destination as! ProfileVC
+            destVC.userUID = sender as! String
+        }
+    }
+    
 }

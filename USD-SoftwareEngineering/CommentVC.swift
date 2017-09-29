@@ -18,10 +18,14 @@ class CommentVC: UIViewController{
     var ideaReference: String!
     
     override func viewDidLoad() {
+        addTapToDismissKeyboard()
         firebaseUser = Auth.auth().currentUser!
         DataService.singleton.observeUser(uid: firebaseUser.uid, completed: { (user) in
             self.user = user
         })
+    }
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     
@@ -46,5 +50,13 @@ class CommentVC: UIViewController{
         }
     }
 
+    //Add tap to dismiss keyboard functionality
+    func addTapToDismissKeyboard(){
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
     
 }

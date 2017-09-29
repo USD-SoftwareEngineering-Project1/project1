@@ -76,7 +76,7 @@ class NewAccountVC: UIViewController, PopUpSenderDelegate{
             let destVC = segue.destination as! MajorSelectionVC
             destVC.delegate = self
             destVC.presentingVC = self
-            destVC.dataToDisplay = ["Major 1", "Major 2", "Major 3", "Major 4"]
+            destVC.dataToDisplay = GlobalActions.majorsList
         }
     }
 }

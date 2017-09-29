@@ -106,8 +106,45 @@ class NewIdeaVC: UIViewController, UITextFieldDelegate, UITextViewDelegate, PopU
             let destVC = segue.destination as! MajorSelectionVC
             destVC.delegate = self
             destVC.presentingVC = self
-            destVC.dataToDisplay = ["Major 1", "Major 2", "Major 3", "Major 4"]
+            destVC.dataToDisplay = GlobalActions.majorsList
         }
     }
+    //MARK: TextViewDelegate
+    func textViewDidBeginEditing(_ textView: UITextView){
+        if textView == ideaSubtitleTextField{
+            if (textView.text == "Subtitle"){
+                textView.text = ""
+                textView.textColor = .black
+            }
+            textView.becomeFirstResponder()
+        }
+        if textView == ideaDescriptionTextField{
+            if (textView.text == "Description"){
+                textView.text = ""
+                textView.textColor = .black
+            }
+            textView.becomeFirstResponder()
+        }
+
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView){
+        if textView == ideaSubtitleTextField{
+            if (textView.text == ""){
+                textView.text = "Subtitle"
+                textView.textColor = UIColor.gray
+            }
+            textView.resignFirstResponder()
+        }
+        if textView == ideaDescriptionTextField{
+            if (textView.text == ""){
+                textView.text = "Description"
+                textView.textColor = UIColor.gray
+            }
+            textView.resignFirstResponder()
+        }
+
+    }
+    
     
 }
