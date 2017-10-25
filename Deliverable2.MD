@@ -1,4 +1,4 @@
-##Problem
+## Problem
 In 2016, the president of the University of California wrote an article titled “Why Universities Are The New Startup Incubators” in which she claimed, "A fundamental purpose of universities is to create an environment where students are encouraged to pursue and embrace opportunities, explore new ideas, take intellectual risks and begin the process of becoming the researchers and innovators of tomorrow.”  However, according to the Young Entrepreneurs Council, 75% of college students do not feel they have access to entrepreneurship resources.
 
 University students are in a unique position to pursue their own ideas. Compared to working professionals, young students have a higher risk tolerance and have more room to experiment and handle early successes and failures. University students are immersed in a competitive environment and are eager to achieve success. An article published by Wired observed that "Besides attracting high-achieving individuals, universities house students from multidisciplinary backgrounds and provide a means for such individuals to easily interact with each other due to proximity. Successful early stage startups are founded by a well-rounded team of individuals from diverse backgrounds.” Although universities provide the perfect environment to share and develop new ideas, there are not many effective platforms for students to realize their goals. 
@@ -12,7 +12,7 @@ Startup, Cam Houser 3 Day. “Why the University Is the Ideal Startup Platform.�
 California, University of. “Why universities are the new startup incubators – University of California – Medium.” Medium, Medium, 3 Oct. 2016, medium.com/@UofCalifornia/why-universities-are-the-new-startup-incubators-be877f3c4cc4. Accessed 21 Sept. 2017.
 
 
-##Solution
+## Solution
 We propose to develop a software service that allows university students all disciplines to share their ideas, get feedback on their ideas, and communicate with others who may be interested in bringing their ideas to life.
 
 The overarching goal of our service is to promote the exchange, development, and execution of ideas.
@@ -21,8 +21,9 @@ Our service will consist of a publicly available “idea feed” where students 
 
 We would like our service to be available to a wide audience, so we propose to provide an iOS mobile application, an Android mobile application, as well as a website where users can share ideas, contribute to ideas, and express interest in working on the idea.
 
-##Process
+## Process
 The progress of our project will be driven by 
+
 * Scum meetings twice a week
     * In the scrum meetings, we will discuss mini-deadlines, project-level sprint progress, individual-level backlog progress.
 * Two-week-long sprints. 
@@ -36,7 +37,8 @@ The progress of our project will be driven by
 * Communication
     * Issues can be addressed via email, text, shared google docs, or at the Scrum meetings
 
-Our scrum method was designed to address the following issues
+Our scrum method was designed to address the following issues:
+
 * We all have busy schedules and cannot afford to meet every day to discuss the project. It is not even expected that team members work on the project every day. We are understanding and sympathetic to the demands of college lifestyle.
 * We are each developing our service on a different platform. Although these platforms are independent of one another on an implementation level, each platform will be accessing the same database and is expected to provide the same experience to the user. It is necessary that we collaborate and agree on high-level UI decisions and establish a cohesive data model, however low-level implementation decisions will be left up to each independent developer. For this reason, goals will be defined on a very high level by the scrum master, and translated by each member into project-level requirements.
 * We are classmates and are comfortable with one another on a social level, therefore informal text and email communication is encouraged.
